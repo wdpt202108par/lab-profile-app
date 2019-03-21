@@ -2,6 +2,34 @@
 
 # IronProfile
 
+## INSTALL
+
+### Configuration
+
+```sh
+cp .env-dist .env
+vi .env
+```
+
+### 
+
+Launch the API Express server in one tab:
+
+```sh
+npm install
+npm run dev
+```
+
+In another tab, launch the React server
+
+```sh
+cd client
+npm install
+npm start
+```
+
+Go to: http://localhost:3000
+
 ## Introduction
 
 Having a profile is one of the most common features you will need to add on your projects, so today we are going to practice creating one.
