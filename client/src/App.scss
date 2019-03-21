@@ -37,7 +37,9 @@ h1 {color:#648166;}
   &__one,
   &__two {width:50%;}
 
-  &__two {background:#c0e3be;}
+  &__two {
+    background:#c0e3be url("/arc.svg") left center no-repeat /5% 110%;
+  }
 
   // padding
   &__one,
