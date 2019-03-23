@@ -8,7 +8,7 @@
 
 ```sh
 cp .env-dist .env
-vi .env
+code .env
 ```
 
 ### 
