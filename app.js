@@ -81,6 +81,10 @@ require('./passport')(app);
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
+//
+// After routes: static server || React SPA
+//
+
 app.use(express.static(path.join(__dirname, 'client/build')));
 // 404 => serve React SPA
 app.use((req, res, next) => {
