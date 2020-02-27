@@ -8,7 +8,9 @@ import authService from './auth-service.js';
 export default class extends React.Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+
+    error: ""
   }
 
   handleSubmit = (event) => {
@@ -16,8 +18,13 @@ export default class extends React.Component {
 
     authService.login(this.state.username, this.state.password)
       .then(response => {
+        this.setState({error: ""});
+
         this.props.updateUser(response);
         this.props.history.push('/');
+      })
+      .catch(err => {
+        this.setState({error: err.response.data.message})
       })
     ;
   }
@@ -34,6 +41,11 @@ export default class extends React.Component {
           <h1>Log in</h1>
           
           <form onSubmit={this.handleSubmit}>
+
+            {this.state.error && (
+              <p className="error">{this.state.error}</p>
+            )}
+
             <p>
               <label>
                 <em>Username</em>

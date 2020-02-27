@@ -9,6 +9,8 @@ input,
 button {font:inherit;}
 
 form {
+  .error {color:red;}
+
   label em {
     font-style:normal;
     display:block;
