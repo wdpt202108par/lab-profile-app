@@ -122,7 +122,7 @@ router.post("/edit", (req, res, next) => {
 const uploader = require('../cloudinary.js');
 router.post("/upload", uploader.single("photo"), (req, res, next) => {
   // Check user is logged in
-  if (!req.isAuthenticated()) {
+  if (!req.user) {
     res.status(401).json({message: "You need to be logged in to upload your avatar"});
     return;
   }
