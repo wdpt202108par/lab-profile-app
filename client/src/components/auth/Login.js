@@ -23,9 +23,7 @@ export default class extends React.Component {
         this.props.updateUser(response);
         this.props.history.push('/');
       })
-      .catch(err => {
-        this.setState({error: err.response.data.message})
-      })
+      .catch(err => this.setState({error: err.response.data.message}))
     ;
   }
 

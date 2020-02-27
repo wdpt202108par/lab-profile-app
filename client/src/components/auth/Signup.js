@@ -10,20 +10,30 @@ export default class extends React.Component {
     username: "",
     password: "",
     campus: "",
-    course: ""
+    course: "",
+
+    error: ""
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
 
+    // 1. Signup
     authService.signup(this.state.username, this.state.password)
       .then(() => {
+        this.setState({error: ""});
+
+        // 2. then, update with user infos
         authService.edit(this.state.username, this.state.campus, this.state.course)
-        .then(response => {
-          this.props.updateUser(response);
-          this.props.history.push('/');
-        })
+          .then(response => {
+            this.setState({error: ""});
+            
+            this.props.updateUser(response);
+            this.props.history.push('/');
+          })
+          .catch(err => this.setState({error: err.response.data.message}))
       })
+      .catch(err => this.setState({error: err.response.data.message}))
     ;
   }
 
@@ -39,6 +49,11 @@ export default class extends React.Component {
           <h1>Sign up</h1>
           
           <form onSubmit={this.handleSubmit}>
+
+            {this.state.error && (
+              <p className="error">{this.state.error}</p>
+            )}
+
             <p>
               <label>
                 <em>Username</em>
