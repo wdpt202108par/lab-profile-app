@@ -7,11 +7,6 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
-
-router.get("/login", (req, res, next) => {
-  res.render("auth/login", { "message": req.flash("error") });
-});
-
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, theUser, failureDetails) => {
     if (err) {
@@ -35,10 +30,6 @@ router.post("/login", (req, res, next) => {
       res.status(200).json(theUser);
     });
   })(req, res, next);
-});
-
-router.get("/signup", (req, res, next) => {
-  res.render("auth/signup");
 });
 
 router.post("/signup", (req, res, next) => {
@@ -87,7 +78,7 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/loggedin", (req, res, next) => {
-  if (req.isAuthenticated()) { // req.isAuthenticated() is defined by passport
+  if (req.user) {
     res.status(200).json(req.user);
     return;
   }
@@ -97,7 +88,7 @@ router.get("/loggedin", (req, res, next) => {
 
 router.post("/edit", (req, res, next) => {
   // Check user is logged in
-  if (!req.isAuthenticated()) {
+  if (!req.user) {
     res.status(401).json({message: "You need to be logged in to edit your profile"});
     return;
   }

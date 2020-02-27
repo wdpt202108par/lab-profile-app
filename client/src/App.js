@@ -37,7 +37,7 @@ class App extends Component {
   render() {
     return (
       <Route render={props => (
-        <div className="App" data-route={props.location.pathname}>
+        <div className="App" data-route={props.location.pathname}> {/* data-route="/" allow us to style pages */}
 
           <Switch>
             <Route exact path="/" render={() => (
@@ -67,10 +67,10 @@ class App extends Component {
             <Route exact path="/login" render={(props) => (
               <Login updateUser={this.updateUser} history={props.history} />
             )} />
+
+            {/* last route, ie: 404 */}
+            <Route render={() => (<h1>Not Found</h1>)} />
           </Switch>
-
-          
-
           
         </div>
       )} />

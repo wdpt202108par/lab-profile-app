@@ -4,7 +4,6 @@ const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express      = require('express');
 const favicon      = require('serve-favicon');
-const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
@@ -34,34 +33,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// Express View engine setup
-
-app.use(require('node-sass-middleware')({
-  src:  path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  sourceMap: true
-}));
-      
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-//app.use(favicon(path.join(__dirname, 'client/build/favicon.ico')));
-
-
-hbs.registerHelper('ifUndefined', (value, options) => {
-  if (arguments.length < 2)
-      throw new Error("Handlebars Helper ifUndefined needs 1 parameter");
-  if (typeof value !== undefined ) {
-      return options.inverse(this);
-  } else {
-      return options.fn(this);
-  }
-});
-  
-
-// default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
-
 const cors = require('cors');
 app.use(cors({
   credentials: true,
@@ -86,13 +57,45 @@ app.use('/auth', authRoutes);
 //
 
 app.use(express.static(path.join(__dirname, 'client/build')));
-// 404 => serve React SPA
+
+// route not-found => could be a React route => render the SPA
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname, 'client/build/index.html'), function (err) {
     if (err) {
-      res.status(500).send(err)
+      next(err)
     }
   })
+});
+
+// catch 404
+// app.use((req, res, next) => {
+//   console.log('404')
+//   const err = new Error()
+//   err.status = 404;
+
+//   next(err);
+// });
+
+app.use((err, req, res, next) => {
+  function er2JSON(er) {
+    // http://stackoverflow.com/questions/18391212/is-it-not-possible-to-stringify-an-error-using-json-stringify#18391212
+    var o = {};
+  
+    Object.getOwnPropertyNames(er).forEach(function (key) {
+      o[key] = er[key];
+    });
+  
+    return o;
+  }
+
+  // always log the error
+  console.error('ERROR', req.method, req.path, err);
+
+  err = er2JSON(err);
+  err.status || (err.status = 500); // default to 500
+  res.status(err.status);
+
+  res.json(err);
 });
 
 module.exports = app;
