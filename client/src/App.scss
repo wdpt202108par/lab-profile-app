@@ -81,7 +81,8 @@ a.btn {text-decoration:none; color:inherit;}
  |_| |_|\___/|_| |_| |_|\___|
 */
 
-[data-route="/"] {
+[data-route="/"],
+[data-route="/profile"] {
   .popin__one {
     display:flex; flex-direction:column;
     .cta {margin-top:auto; margin-bottom:0;}
@@ -98,6 +99,7 @@ a.btn {text-decoration:none; color:inherit;}
     display:block; width:13em;height:13em;border-radius:100%; object-fit:contain; margin:0 auto;
     background:#e1e1e1;
     margin-bottom:1em;
+    object-fit: cover;
   }
 
   .popin__two {
