@@ -3,7 +3,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import Popin from '../Popin.js';
-import AuthService from './auth-service.js';
+import authService from './auth-service.js';
 
 export default class extends React.Component {
   state = {
@@ -13,14 +13,12 @@ export default class extends React.Component {
     course: ""
   }
 
-  service = new AuthService();
-
   handleSubmit = (event) => {
     event.preventDefault();
 
-    this.service.signup(this.state.username, this.state.password)
+    authService.signup(this.state.username, this.state.password)
       .then(() => {
-        this.service.edit(this.state.username, this.state.campus, this.state.course)
+        authService.edit(this.state.username, this.state.campus, this.state.course)
         .then(response => {
           this.props.updateUser(response);
           this.props.history.push('/');

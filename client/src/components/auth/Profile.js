@@ -1,14 +1,13 @@
 import React from 'react';
 
 import Popin from '../Popin.js';
-import AuthService from './auth-service.js';
+import authService from './auth-service.js';
 import { Redirect } from 'react-router-dom';
 
 export default class extends React.Component {
-  service = new AuthService();
 
   logout = (event) => {
-    this.service.logout()
+    authService.logout()
       .then(response => {
         this.props.updateUser(false);
       })
@@ -19,7 +18,7 @@ export default class extends React.Component {
     let formData = new FormData();
     formData.append('photo', event.target.files[0]);
 
-    this.service.upload(formData)
+    authService.upload(formData)
       .then(response => {
         this.props.updateUser(response);
       })

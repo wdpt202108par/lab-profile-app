@@ -7,18 +7,17 @@ import Homepage from './components/auth/Homepage.js'
 import Signup from './components/auth/Signup.js';
 import Login from './components/auth/Login.js';
 import Profile from './components/auth/Profile.js';
-import AuthService from './components/auth/auth-service.js';
+
+import authService from './components/auth/auth-service.js';
 
 class App extends Component {
   state = {
     user: {}
   }
 
-  service = new AuthService();
-
   fetchUser = () => {
     if (!this.state.user._id) {
-      this.service.loggedin()
+      authService.loggedin()
         .then(data => this.setState({user: data}))
         .catch(err => this.setState({user: {}}))
       ;
