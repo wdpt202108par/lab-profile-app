@@ -8,12 +8,12 @@ const logger       = require('morgan');
 const path         = require('path');
 
 const session    = require("express-session");
-const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo');
 
 const app_name = require('./package.json').name; // "lab-profile-app"
 
 mongoose
-  .connect((process.env.MONGODB_URI ||`mongodb://localhost/${app_name}`), {useNewUrlParser: true})
+  .connect((process.env.MONGODB_URI ||`mongodb://localhost/${app_name}`), {useNewUrlParser: true, useUnifiedTopology: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -40,7 +40,9 @@ app.use(session({
   secret: `${app_name}-shhhhhhht`,
   resave: true,
   saveUninitialized: true,
-  store: new MongoStore( { mongooseConnection: mongoose.connection })
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI,
+  })
 }))
 require('./passport')(app);
 

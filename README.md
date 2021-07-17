@@ -16,7 +16,7 @@ code .env
 Launch the API Express server in one tab:
 
 ```sh
-npm install
+npm ci
 npm run dev
 ```
 
@@ -24,7 +24,7 @@ In another tab, launch the React server
 
 ```sh
 cd client
-npm install
+npm ci
 npm start
 ```
 
