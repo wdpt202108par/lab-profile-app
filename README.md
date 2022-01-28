@@ -35,7 +35,7 @@ $ npm start
 
 ### Iteration 1 | The REST API
 
-You will start building the app creating the REST API. Create the `app` using the `irongenerator`. Then, create the **user model** so the `User.model.js` have the following fields:
+You will start building the app creating the REST API. Create the `app` using the `ironlauncher`. Then, create the **user model** so the `User.model.js` have the following fields:
 
 - **username**, type String,
 - **password**, type String
