@@ -14,12 +14,13 @@ class Signup extends Component {
         const campus = this.state.campus;
         const course = this.state.course;
 
-        axios.post(`http://localhost:5005/api/signup`, { username, password, campus, course})
-      .then( () => {
-          this.props.getData();
-          this.setState({username:"", password:"", campus:"", course:""})
-      })
-      .catch( error => console.log(error) )
+        axios.post(`http://localhost:5005/api/auth/signup`, { username, password, campus, course})
+        .then( () => {
+            console.log(`Console.log`, this.props)
+            //   this.props.getData();
+            this.setState({username:"", password:"", campus:"", course:""})
+        })
+        .catch( error => console.log(error) )
 
 
         // signup(username, password,campus, course)

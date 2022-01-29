@@ -3,6 +3,8 @@ import background from '../src/oval-bg.png';
 
 import Homepage from './components/Homepage';
 import Signup from './components/Signup';
+import Login from './components/Login';
+
 
 
 
@@ -18,6 +20,7 @@ function App() {
       <Switch>
         <Route exact path="/" component = {Homepage}/>
         <Route exact path="/signup" component = {Signup}/>
+        <Route exact path="/login" component = {Login}/>
       </Switch>
 
 
