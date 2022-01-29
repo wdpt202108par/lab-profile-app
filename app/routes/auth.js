@@ -19,7 +19,7 @@ router.get("/loggedin", (req, res) => {
 });
 
 router.post("/signup", isLoggedOut, (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, campus, course } = req.body;
 
   if (!username) {
     return res
@@ -61,6 +61,8 @@ router.post("/signup", isLoggedOut, (req, res) => {
         return User.create({
           username,
           password: hashedPassword,
+          campus, 
+          course
         });
       })
       .then((user) => {
@@ -82,6 +84,23 @@ router.post("/signup", isLoggedOut, (req, res) => {
       });
   });
 });
+
+router.post("/edit/:userid", isLoggedIn, (req, res) => {
+  User.findByIdAndUpdate(
+    req.params.userid,
+    {username: req.body.username,
+     campus: req.body.campus, 
+     course: req.body.course
+    },
+    {new:true}
+  )
+    .then((user) => {
+      return res.status(201).json(user);
+    })
+    .catch((error) => {
+     return res.status(500).json({errorMessage: error.message});
+    })
+})
 
 router.post("/login", isLoggedOut, (req, res, next) => {
   const { username, password } = req.body;
