@@ -8,6 +8,10 @@ const userSchema = new Schema(
       // unique: true -> Ideally, should be unique, but its up to you
     },
     password: String,
+
+    campus: {type: String, enum: ["Madrid", "Barcelona", "Miami", "Paris", "Berlin", "Amsterdam", "México", "Sao Paulo", "Lisbon" ]},
+    course:{type: String, enum:["Web Dev", "UX/UI", "Data Analytics"]},
+    image: {type: String}
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
